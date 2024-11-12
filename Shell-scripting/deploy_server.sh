@@ -3,13 +3,13 @@
 deploy_server() {
     local server=$1
     echo "Accessing server: $server"
-    
+
     # Ping to check if the server is reachable
     if ! ping -c 1 -W 1 "$server" > /dev/null 2>&1; then
         echo "Error: Server $server is unreachable."
         return 1
     fi
-    
+
     # SSH into the server and run commands
     ssh vagrant@$server <<EOF
  echo "Updating package list on $server..."

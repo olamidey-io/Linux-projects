@@ -1,0 +1,17 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "single-server" do |server|
+    server.vm.box = "ubuntu/focal64"  # Ubuntu 20.04 LTS
+    server.vm.network "private_network", ip: "192.168.33.20"  # Unique IP
+
+    # SSH Forwarding - Choose a different host port from previous setups
+    server.vm.network "forwarded_port", guest: 22, host: 2230, id: "ssh"
+
+    # HTTP Forwarding for Apache (if needed)
+    server.vm.network "forwarded_port", guest: 80, host: 8088
+
+    server.vm.provider "virtualbox" do |vb|
+      vb.memory = 512  # Allocate 512MB RAM
+      vb.cpus = 1      # Single CPU for simplicity
+    end
+  end
+end

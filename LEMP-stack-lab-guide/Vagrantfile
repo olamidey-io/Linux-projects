@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  # Use Ubuntu 22.04 as the base image
+  config.vm.box = "ubuntu/focal64"
+
+  # Assign a static IP address (change it if needed)
+  config.vm.network "private_network", ip: "192.168.56.10"
+
+  # Forward Apache port
+  config.vm.network "forwarded_port", guest: 80, host: 8081
+
+  # Optional: Allocate more resources if needed
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+  end
+end
